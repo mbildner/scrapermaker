@@ -11,14 +11,7 @@ readyButton.setAttribute('data-grabthis', "scaffolding");
 readyButton.action = "alert('hello world');"
 
 
-buttonHolder.appendChild(readyButton);
-
-
-document.body.insertBefore(buttonHolder, document.body.firstChild);
-
-
-
-var register = function(targetNode) {
+var addNodeToScraper = function(targetNode) {
 	var registered = targetNode.getAttribute('data-grabthis');
 
 	if (!registered) {
@@ -29,10 +22,28 @@ var register = function(targetNode) {
 		targetNode.setAttribute('data-grabthis', true);
 		// targetNode.className += " GRABTHIS";
 	} else {
+
 		console.log(targetNode.className);
 	}
 }
 
 document.addEventListener('click', function(click) {
-	register(click.target);
+	var targetNode = click.target;
+
+	addNodeToScraper(targetNode);
+
+	// blur out of the element when user hits "enter"
+	targetNode.addEventListener("keydown", function (key) {
+		// "enter" key registers as 13
+		if (key.which == 13) {
+
+			var targetLabelPattern = /\{\{(.*)\}\}/
+			var targetLabelText = targetNode.textContent.match(targetLabelPattern)[1];
+
+			targetNode.setAttribute('data-grabthis', targetLabelText);		
+			targetNode.blur();
+
+		}
+	})
+
 })"""
