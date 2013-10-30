@@ -2,6 +2,8 @@ from flask import Flask, url_for, render_template, request
 import requests
 from bs4 import BeautifulSoup, Tag
 
+import HTMLParser
+
 
 from js_payload import payload
 
@@ -11,6 +13,22 @@ app.debug = True
 app.restart = True
 
 
+@app.route('/submission', methods=["POST"])
+def submission():
+	html = request.form['annotated_html']
+
+	parser = HTMLParser.HTMLParser()
+
+	decoded_html = parser.unescape(html)
+
+	bs_decoded = BeautifulSoup(html)
+
+
+	print bs_decoded
+	# print decoded_html
+
+
+	
 
 @app.route('/', methods=["GET", "POST"])
 def home():

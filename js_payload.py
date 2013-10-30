@@ -46,4 +46,44 @@ document.addEventListener('click', function(click) {
 		}
 	})
 
-})"""
+});
+
+
+// post this using ajax, NOT a form in the future.
+
+var form = document.createElement('form');
+form.setAttribute('id', 'formID');
+
+
+var input = document.createElement('input');
+input.setAttribute('type', 'hidden');
+input.setAttribute('name', 'annotated_html');
+
+
+
+input.id = "inputID";
+
+
+form.appendChild(input);
+
+document.body.appendChild(form);
+
+var button = document.createElement('button');
+
+
+button.addEventListener('click', function (click) {
+	var input = document.getElementById('inputID');
+	console.log(input);
+	var form = document.getElementById('formID');
+
+	input.value = document.body.innerHTML;
+
+	form.submit();
+
+	});
+
+button.innerHTML = "CLICK ME";
+
+document.body.appendChild(button);"""
+
+
